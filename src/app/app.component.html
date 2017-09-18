@@ -1,0 +1,68 @@
+<div class="form-group">
+  <div class="col-sm-10">
+    <form #f="ngForm" (ngSubmit)="submit(f.value,f.valid)" novalidate autocomplete="off">
+      <div class="form-group">
+        <input type="text" name="name" class="form-control" [(ngModel)]="userDetail.name" (change)="checkChar(refName)" required #refName='ngModel'>
+        <div [hidden]="refName.valid || refName.pristine" class="alert alert-danger">
+          Name is required
+        </div>
+        <div [hidden]="nameInChar" class="alert alert-danger">
+          Name should be in character
+        </div>
+      </div>
+      <div class="form-group">
+        <input type="text" name="lastName" class="form-control" [(ngModel)]="userDetail.lastName" (change)="checkChar(refLastName)" required #refLastName='ngModel'>
+        <div [hidden]="refLastName.valid || refLastName.pristine" class="alert alert-danger">
+          LastName is required
+        </div>
+        <div [hidden]="lastNameInChar" class="alert alert-danger">
+          LastName should be in character
+        </div>
+      </div>
+      <div class="form-group">
+        <input type="text" name="age" class="form-control" [(ngModel)]="userDetail.age" required #refage='ngModel'>
+        <div [hidden]="refage.valid || refage.pristine" class="alert alert-danger">
+          Age is required
+        </div>
+      </div>
+      <div class="form-group">
+        <select class="txt-box" name="gender" [(ngModel)]="userDetail.genderType" class="form-control" required #refGender='ngModel'>
+          <option [value]="userDetail.genderType" [disabled]="true">Select Option </option>
+            <option *ngFor="let gender of genderArray" [ngValue]="gender.value">
+            {{gender.value}}
+            </option>
+      </select>
+        <div [hidden]="refGender.valid || refGender.pristine" class="alert alert-danger">
+          Gender is required
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-primary">Submit</button>
+
+    </form>
+
+    <hr/>
+    <div *ngIf="arrayList.length > 0">
+      <div class="table-responsive">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>LastName</th>
+              <th>Age</th>
+              <th>Gender</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of arrayList">
+              <td>{{item.name}}</td>
+              <td>{{item.lastName}}</td>
+              <td>{{item.age}}</td>
+              <td>{{item.gender}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
